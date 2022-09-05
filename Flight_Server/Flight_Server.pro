@@ -1,4 +1,5 @@
 QT -= gui
+QT += sql
 
 CONFIG += c++17 console
 CONFIG -= app_bundle
@@ -11,6 +12,7 @@ SOURCES += \
         flightinfo.cpp \
         main.cpp \
         order.cpp \
+        serverdbconnection.cpp \
         useraccount.cpp
 
 # Default rules for deployment.
@@ -21,4 +23,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     flightinfo.h \
     order.h \
+    serverdbconnection.h \
     useraccount.h

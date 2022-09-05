@@ -110,7 +110,7 @@ QString UserAccount::getPassport() const
 
 QByteArray UserAccount::getHashedPassword(const QString password)
 {
-    // TODO: change the hashing algorithm to the SM3 algorithm (https://en.wikipedia.org/wiki/SM3_(hash_function)) and implement the algorithm in C++. The algorithm is described in the link, which is used in the Chinese government and is considered to be secure.  
+    // TODO: change the hashing algorithm to the SM3 algorithm (https://en.wikipedia.org/wiki/SM3_(hash_function)) and implement the algorithm in C++. The algorithm is described in the link, which is used in the Chinese government and is considered to be secure.  `
     return QCryptographicHash::hash(password.toUtf8(), QCryptographicHash::Sha256);
 }
 
