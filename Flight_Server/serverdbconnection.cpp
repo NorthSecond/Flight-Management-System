@@ -3,14 +3,14 @@
 #include <QSqlError>
 #include <QDebug>
 
-ServerDBConnection::ServerDBConnection()
+ServerDBConnection::ServerDBConnection(QString hostName, int port, QString databaseName, QString userName, QString password)
 {
     db = QSqlDatabase::addDatabase("QODBC");
-    db.setHostName("127.0.0.1");
-    db.setPort(3306);
-    db.setDatabaseName("mysql");
-    db.setUserName("root");
-    db.setPassword("");
+    db.setHostName(hostName);
+    db.setPort(port);
+    db.setDatabaseName(databaseName);
+    db.setUserName(userName);
+    db.setPassword(password);
 }
 
 ServerDBConnection::~ServerDBConnection()

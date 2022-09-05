@@ -17,7 +17,8 @@ class ServerDBConnection
 private:
     QSqlDatabase db;
 public:
-    ServerDBConnection();
+    ServerDBConnection(QString hostName, int port, QString databaseName, QString userName, QString password);
+    // ServerDBConnection();
     ~ServerDBConnection();
     bool connect();
     bool disconnect();
