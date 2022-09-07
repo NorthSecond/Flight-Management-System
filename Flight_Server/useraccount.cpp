@@ -11,10 +11,6 @@
 
 #include "useraccount.h"
 
-#include <QDateTime>
-#include <QString>
-#include <QCryptographicHash>
-
 UserAccount::UserAccount(QString username, QByteArray password_hash, QString phone, QString name, QString surname, QString address, QString passport_number, QString passport_expiration_date, QString passport_issuing_country, QString passport_issuing_date, QString passport_issuing_authority, QString passport_birth_place, QString passport_birth_date, QString email)
 {
     this->username = username;
@@ -143,4 +139,16 @@ bool UserAccount::WriteToDB(QSqlDatabase db)
     query.bindValue(":passport_birth_date", passport_birth_date);
     query.bindValue(":email", email);
     return query.exec();
+}
+
+bool UserAccount::WriteToLog(Qstring log_info){
+    QFile file("./logs/account.log");
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text))
+    {
+        return false;
+    }
+    QTextStream out(&file);
+    out << QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss") << loginfo << ":\n\t";
+    out << loginfo << Qt::endl;
+    return true;
 }

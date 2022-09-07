@@ -15,6 +15,10 @@
 #include <QDateTime>
 #include <QSqlQuery>
 #include <QSqlError>
+#include <QSqlRecord>
+#include <QSqlDatabase>
+#include <QFile>
+#include <QCryptographicHash>
 
 class UserAccount
 {
@@ -35,8 +39,9 @@ private:
     QString passport_issuing_date;
     QString passport_issuing_authority;
     QString passport_birth_place;
-    QString passport_birth_date;
+    QString passport_birth_date;.
 
+    bool writeToLog(QString log_info);
 public:
     static QByteArray getHashedPassword(const QString password);
 
@@ -59,5 +64,5 @@ public:
     QString getPassportBirthDate() const;
     QString getPassport() const;
 
-    bool WriteToDB(QSqlDataBase DB);
+    bool WriteToDB(QSqlDatabase DB);
 };

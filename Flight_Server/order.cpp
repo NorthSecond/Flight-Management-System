@@ -11,6 +11,8 @@
 
 #include "order.h"
 
+using namespace Qt;
+
 Order::Order(int orderID, QString user_id, QString flight_id, int seat, int price, OrderStatus status)
 {
     this->orderID = orderID;
@@ -67,32 +69,33 @@ void Order::cancel()
     // TODO: write to database
 }
 
-bool Order::writeToDB(QDatabase db)
+bool Order::writeToDB(QSqlDatabase db)
 {
-    if(!db.isConnected())
+    if(!db.isOpen())
     {
         return false;
     }
-    QSqlQuery query(db.getDB());
+    QSqlQuery query(db);
     query.prepare("INSERT INTO orders (order_id, user_id, flight_id, seat, price, status) VALUES (:order_id, :user_id, :flight_id, :seat, :price, :status)");
     query.bindValue(":order_id", this->orderID);
     query.bindValue(":user_id", this->user_id);
     query.bindValue(":flight_id", this->flight_id);
     query.bindValue(":seat", this->seat);
     query.bindValue(":price", this->price);
-    query.bindValue(":status", this->status);
+    // TODO: find a good way to store the status of the order.
+//    query.bindValue(":status", this->status);
     return query.exec();
 }
 
 bool Order::writeToLog(QString loginfo)
 {
-    QFile file("order.log");
+    QFile file("./logs/order.log");
     if(!file.open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text))
     {
         return false;
     }
     QTextStream out(&file);
     out << this->user_id  << '\t' << QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss") << loginfo << ":\n\t";
-    out << loginfo << endl;
+    out << loginfo << Qt::endl;
     return true;
 }

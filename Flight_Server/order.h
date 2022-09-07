@@ -10,8 +10,13 @@
  */
 
 #pragma once
-#include "useraccount.h"
-#include "flightinfo.h"
+
+#include <QFile>
+#include <QSqlDatabase>
+#include <QSqlQuery>
+#include <QDateTime>
+
+
 enum class OrderStatus { 
     UNPAID, 
     PAID, 
@@ -27,11 +32,12 @@ private:
     int seat;
     int price;
     OrderStatus status;
+    bool writeToLog(QString log_info);
 public:
-    Order(int orderID, Qstring user_id, QString flight_id, int seat, int price, OrderStatus status);
+    Order(int orderID, QString user_id, QString flight_id, int seat, int price, OrderStatus status);
     ~Order();
     QString getUserID() const;
-    OrderedStatus getStatus() const;
+    OrderStatus getStatus() const;
     QString getFlightID() const;
     int getSeat() const;
     int getPrice() const;
@@ -39,6 +45,5 @@ public:
 
     void pay();
     void cancel();
-    bool writeToDB(QDatabase db);
-    bool writeToLog(QString loginfo);
+    bool writeToDB(QSqlDatabase db);
 };
