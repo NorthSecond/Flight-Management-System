@@ -13,6 +13,8 @@
 
 #include <QString>
 #include <QDateTime>
+#include <QSqlQuery>
+#include <QSqlError>
 
 class UserAccount
 {
@@ -23,8 +25,8 @@ private:
     QString email;
     QString phone;
     QString name;
-
     QString surname;
+
     QString address;
 
     QString passport_number;
@@ -57,4 +59,5 @@ public:
     QString getPassportBirthDate() const;
     QString getPassport() const;
 
+    bool WriteToDB(QSqlDataBase DB);
 };

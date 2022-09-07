@@ -116,4 +116,31 @@ QByteArray UserAccount::getHashedPassword(const QString password)
 
 UserAccount::~UserAccount()
 {
+    
+}
+
+bool UserAccount::WriteToDB(QSqlDatabase db)
+{
+    // TODO: 和数据库统一格式
+    if(!db.isOpen())
+    {
+        return false;
+    }
+    QSqlQuery query(db);
+    query.prepare("INSERT INTO user_account (username, password_hash, phone, name, surname, address, passport_number, passport_expiration_date, passport_issuing_country, passport_issuing_date, passport_issuing_authority, passport_birth_place, passport_birth_date, email) VALUES (:username, :password_hash, :phone, :name, :surname, :address, :passport_number, :passport_expiration_date, :passport_issuing_country, :passport_issuing_date, :passport_issuing_authority, :passport_birth_place, :passport_birth_date, :email)");
+    query.bindValue(":username", username);
+    query.bindValue(":password_hash", password_hash);
+    query.bindValue(":phone", phone);
+    query.bindValue(":name", name);
+    query.bindValue(":surname", surname);
+    query.bindValue(":address", address);
+    query.bindValue(":passport_number", passport_number);
+    query.bindValue(":passport_expiration_date", passport_expiration_date);
+    query.bindValue(":passport_issuing_country", passport_issuing_country);
+    query.bindValue(":passport_issuing_date", passport_issuing_date);
+    query.bindValue(":passport_issuing_authority", passport_issuing_authority);
+    query.bindValue(":passport_birth_place", passport_birth_place);
+    query.bindValue(":passport_birth_date", passport_birth_date);
+    query.bindValue(":email", email);
+    return query.exec();
 }

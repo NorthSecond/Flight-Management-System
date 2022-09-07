@@ -23,7 +23,7 @@ ServerDBConnection::~ServerDBConnection()
 
 bool ServerDBConnection::connect()
 {
-    return ok = db.open();
+    return db.open();
 }
 
 bool ServerDBConnection::disconnect()
