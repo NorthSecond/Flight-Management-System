@@ -15,10 +15,7 @@ ServerDBConnection::ServerDBConnection(QString hostName, int port, QString datab
 
 ServerDBConnection::~ServerDBConnection()
 {
-    if (db.isOpen())
-    {
-        db.close();
-    }
+    this->disconnect();
 }
 
 bool ServerDBConnection::connect()

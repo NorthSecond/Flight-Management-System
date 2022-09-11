@@ -141,14 +141,14 @@ bool UserAccount::WriteToDB(QSqlDatabase db)
     return query.exec();
 }
 
-bool UserAccount::WriteToLog(Qstring log_info){
+bool UserAccount::writeToLog(QString log_info){
     QFile file("./logs/account.log");
     if (!file.open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text))
     {
         return false;
     }
     QTextStream out(&file);
-    out << QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss") << loginfo << ":\n\t";
-    out << loginfo << Qt::endl;
+    out << QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss") << log_info << ":\n\t";
+    out << log_info << Qt::endl;
     return true;
 }

@@ -39,7 +39,7 @@ private:
     QString passport_issuing_date;
     QString passport_issuing_authority;
     QString passport_birth_place;
-    QString passport_birth_date;.
+    QString passport_birth_date;
 
     bool writeToLog(QString log_info);
 public:
