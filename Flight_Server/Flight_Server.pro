@@ -1,5 +1,6 @@
 QT -= gui
 QT += sql
+QT += network
 
 CONFIG += c++17 console
 CONFIG -= app_bundle
@@ -10,6 +11,7 @@ CONFIG -= app_bundle
 
 SOURCES += \
         flightinfo.cpp \
+        httpserver.cpp \
         main.cpp \
         order.cpp \
         serverdbconnection.cpp \
@@ -22,6 +24,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     flightinfo.h \
+    httpserver.h \
     order.h \
     serverdbconnection.h \
     useraccount.h
