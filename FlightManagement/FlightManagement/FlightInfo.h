@@ -52,9 +52,22 @@ private:
 	FlightType type;
 	
 public:
+	FlightInfo();
 	FlightInfo(QString flight_id, QString from_airport, QString dst_airport, QBitArray days, QTime departure_time, QTime arrival_time, 
 		QMap<QString, size_t> seats, QMap<QString, size_t> price, FlightStatus status, FlightType type);
 	~FlightInfo();
+	
+	QBitArray getDays();
+	QTime getDepartureTime();
+	QTime getArrivalTime();
+	QString getFromAirport();
+	QString getDstAirport();
+	QString getFlightId();
+	QMap<QString, size_t> getSeats();
+	QMap<QString, size_t> getPrice();
+	FlightStatus getStatus();
+	FlightType getType();
+	
 
 	bool operator<(const FlightInfo& other) const;
 };

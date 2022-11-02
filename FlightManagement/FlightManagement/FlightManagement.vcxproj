@@ -32,7 +32,7 @@
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
     <QtInstall>v6.3.1</QtInstall>
-    <QtModules>core;gui;widgets</QtModules>
+    <QtModules>core;gui;widgets;sql</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
@@ -85,15 +85,30 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Management.cpp" />
+    <ClCompile Include="SearchResult.cpp" />
     <QtRcc Include="FlightManagement.qrc" />
     <QtUic Include="FlightManagement.ui" />
     <QtMoc Include="FlightManagement.h" />
+    <ClCompile Include="DatabaseRepository.cpp" />
     <ClCompile Include="FlightInfo.cpp" />
     <ClCompile Include="FlightManagement.cpp" />
     <ClCompile Include="main.cpp" />
+    <QtUic Include="ManagementUI.ui" />
+    <QtUic Include="SearchResult.ui" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DatabaseRepository.h" />
     <ClInclude Include="FlightInfo.h" />
+    <QtMoc Include="SearchResult.h" />
+    <QtMoc Include="Management.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="FlightManagement.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

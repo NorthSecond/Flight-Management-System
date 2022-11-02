@@ -13,4 +13,9 @@ public:
 
 private:
     Ui::FlightManagementClass ui;
+
+public slots:
+	void searchFlight();
+	void management();
+	void exit();
 };
