@@ -6,6 +6,8 @@
 #include "FlightManagement.h"
 #include "DatabaseRepository.h"
 #include "FlightInfo.h"
+#include "Management.h"
+#include "SearchResult.h"
 
 FlightManagement::FlightManagement(QWidget *parent)
     : QMainWindow(parent)
@@ -13,8 +15,8 @@ FlightManagement::FlightManagement(QWidget *parent)
     ui.setupUi(this);
 
 	// 设置高分辨率渲染
-	QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
-	QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+	//QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
+	//QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 	
 	// Initialize the database.
 	//DatabaseRepository db;
@@ -70,12 +72,16 @@ FlightManagement::~FlightManagement()
 
 void FlightManagement::searchFlight()
 {
-	
+	mainWidget = new SearchResult(this);
+	mainWidget->show();
+	this->hide();
 }
 
 void FlightManagement::management()
 {
-
+	mainWidget = new Management(this);
+	mainWidget->show();
+	this->hide();
 }
 
 void FlightManagement::exit()

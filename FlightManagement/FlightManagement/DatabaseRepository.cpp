@@ -2,9 +2,9 @@
 
 DatabaseRepository::DatabaseRepository()
 {
-	QString hostName = "localhost";
+	QString hostName = "127.0.0.1";
 	int port = 3306;
-	QString databaseName = "FlightManagement";
+	QString databaseName = "mysql";
 	QString userName = "root";
 	QString password = "357480";
 	initializeDatabase(hostName, port, databaseName, userName, password);
@@ -18,21 +18,28 @@ DatabaseRepository::~DatabaseRepository()
 void DatabaseRepository::initializeDatabase(QString hostName, int port, QString databaseName, QString userName, QString password)
 {
 	db = QSqlDatabase::addDatabase("QODBC");
-	db.setHostName(hostName);
-	db.setPort(port);
-	db.setDatabaseName(databaseName);
-	db.setUserName(userName);
-	db.setPassword(password);
+	//db.setHostName(hostName);
+	//db.setPort(port);
+	QString connectString = QStringLiteral(
+		"DRIVER={MySQL ODBC 8.0 Unicode Driver};"
+		"SERVER=%1:%2;"
+		"DATABASE=%3;"
+		"UID=%4;"
+		"PWD=%5;").arg(hostName).arg(port).arg(databaseName).arg(userName).arg(password);
+	db.setDatabaseName(connectString);
+	//db.setUserName(userName);
+	//db.setPassword(password);
 	if (!db.open())
 	{// fail to open database
 		QMessageBox::critical(NULL, "Error", "Database connection failed!");
+		exit(2);
 	}
 }
 
 FlightInfo DatabaseRepository::getFlightInfo(QString flight_id)
 {
 	QSqlQuery query;
-	query.prepare("SELECT * FROM FlightInfo WHERE flight_id = :flight_id");
+	query.prepare("SELECT * FROM flightinfo WHERE flight_id = :flight_id");
 	query.bindValue(":flight_id", flight_id);
 	query.exec();
 	if (query.next())
@@ -72,7 +79,7 @@ QVector<FlightInfo> DatabaseRepository::getFlightInfo(QString from_airport, QStr
 {
 	QVector<FlightInfo> flight_infos;
 	QSqlQuery query;
-	query.prepare("SELECT * FROM FlightInfo WHERE from_airport = :from_airport AND dst_airport = :dst_airport");
+	query.prepare("SELECT * FROM flightinfo WHERE from_airport = :from_airport AND dst_airport = :dst_airport");
 	query.bindValue(":from_airport", from_airport);
 	query.bindValue(":dst_airport", dst_airport);
 	query.exec();
@@ -116,7 +123,7 @@ QVector <FlightInfo> DatabaseRepository::getFlightInfo(QVector<QString> flight_i
 	QSqlQuery query;
 	for (QString& flight_id : flight_ids)
 	{
-		query.prepare("SELECT * FROM FlightInfo WHERE flight_id = :flight_id");
+		query.prepare("SELECT * FROM flightinfo WHERE flight_id = :flight_id");
 		query.bindValue(":flight_id", flight_id);
 		query.exec();
 		if (query.next())
@@ -155,7 +162,7 @@ QVector<FlightInfo> DatabaseRepository::getFlightInfo(QString from_airport, QStr
 {
 	QVector<FlightInfo> flight_infos;
 	QSqlQuery query;
-	query.prepare("SELECT * FROM FlightInfo WHERE from_airport = :from_airport AND dst_airport = :dst_airport AND type = :type");
+	query.prepare("SELECT * FROM flightinfo WHERE from_airport = :from_airport AND dst_airport = :dst_airport AND type = :type");
 	query.bindValue(":from_airport", from_airport);
 	query.bindValue(":dst_airport", dst_airport);
 	query.bindValue(":type", type);
@@ -198,7 +205,7 @@ QVector<FlightInfo> DatabaseRepository::getFlightInfo(QString from_airport, QStr
 {
 	QVector<FlightInfo> flight_infos;
 	QSqlQuery query;
-	query.prepare("SELECT * FROM FlightInfo WHERE from_airport = :from_airport AND dst_airport = :dst_airport AND status = :status");
+	query.prepare("SELECT * FROM flightinfo WHERE from_airport = :from_airport AND dst_airport = :dst_airport AND status = :status");
 	query.bindValue(":from_airport", from_airport);
 	query.bindValue(":dst_airport", dst_airport);
 	query.bindValue(":status", status);
@@ -241,7 +248,7 @@ QVector<FlightInfo> DatabaseRepository::getFlightInfo(QString from_airport, QStr
 {
 	QVector<FlightInfo> flight_infos;
 	QSqlQuery query;
-	query.prepare("SELECT * FROM FlightInfo WHERE from_airport = :from_airport AND dst_airport = :dst_airport AND type = :type AND status = :status");
+	query.prepare("SELECT * FROM flightinfo WHERE from_airport = :from_airport AND dst_airport = :dst_airport AND type = :type AND status = :status");
 	query.bindValue(":from_airport", from_airport);
 	query.bindValue(":dst_airport", dst_airport);
 	query.bindValue(":type", type);
@@ -284,7 +291,12 @@ QVector<FlightInfo> DatabaseRepository::getFlightInfo(QString from_airport, QStr
 bool DatabaseRepository::addFlightInfo(FlightInfo flight_info) 
 {
 		QSqlQuery query;
-		query.prepare("INSERT INTO FlightInfo (flight_id, from_airport, dst_airport, monday, tuesday, wednesday, thursday, friday, saturday, sunday, departure_time, arrival_time, economy_seats, business_seats, first_seats, economy_price, business_price, first_price, status, type) VALUES (:flight_id, :from_airport, :dst_airport, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday, :departure_time, :arrival_time, :economy_seats, :business_seats, :first_seats, :economy_price, :business_price, :first_price, :status, :type)");
+		query.prepare("INSERT INTO FlightInfo (flight_id, from_airport, dst_airport, monday, tuesday, wednesday,"
+			" thursday, friday, saturday, sunday, departure_time, economy_seats, business_seats, "
+			"first_seats, economy_price, business_price, first_price, status, type) VALUES (:flight_id, :from_airport,"
+			" :dst_airport, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday, :departure_time, "
+			":arrival_time, :economy_seats, :business_seats, :first_seats, :economy_price, :business_price, :first_price,"
+			" :status, :type)");
 		query.bindValue(":flight_id", flight_info.getFlightId());
 		query.bindValue(":from_airport", flight_info.getFromAirport());
 		query.bindValue(":dst_airport", flight_info.getDstAirport());
@@ -311,9 +323,10 @@ bool DatabaseRepository::addFlightInfo(FlightInfo flight_info)
 bool DatabaseRepository::addFlightInfo(QVector<FlightInfo> flight_infos) 
 {
 	QSqlQuery query;
-	QString sentence = "INSERT INTO FlightInfo (flight_id, from_airport, dst_airport, monday, tuesday, wednesday, thursday, friday, saturday, sunday, departure_time, arrival_time, economy_seats, business_seats, first_seats, economy_price, business_price, first_price, status, type) VALUES ";
+	QString sentence = "INSERT INTO FlightInfo (flight_id, from_airport, dst_airport, monday, tuesday, wednesday, thursday, friday, saturday, sunday, departure_time, arrival_time, "
+		"economy_seats, business_seats, first_seats, economy_price, business_price, first_price, status, type) VALUES ";
 	QString tmpStr;
-	for (auto i : flight_infos) {
+	for (auto& i : flight_infos) {
 		tmpStr = "(";
 		tmpStr += i.getFlightId();
 		tmpStr += ", ";
@@ -357,6 +370,10 @@ bool DatabaseRepository::addFlightInfo(QVector<FlightInfo> flight_infos)
 		tmpStr += "), ";
 		sentence += tmpStr;
 	}
+	sentence = sentence.left(sentence.length() - 2);
+	sentence += ";";
+	query.prepare(sentence);
+	
 	return query.exec(); 
 }
 
@@ -390,7 +407,12 @@ bool DatabaseRepository::updateFlightInfo(FlightInfo flight_info)
 bool DatabaseRepository::deleteFlightInfo(QString flight_id)
 {
 	QSqlQuery query;
-	query.prepare("DELETE FROM FlightInfo WHERE flight_id = :flight_id");
+	query.prepare("DELETE FROM flightinfo WHERE flight_id = :flight_id");
 	query.bindValue(":flight_id", flight_id);
 	return query.exec();
+}
+
+QSqlDatabase DatabaseRepository::getDatabase()
+{
+	return db;
 }

@@ -25,4 +25,5 @@ public:
 	bool addFlightInfo(QVector<FlightInfo> flight_infos);
 	bool updateFlightInfo(FlightInfo flight_info);
 	bool deleteFlightInfo(QString flight_id);
+	QSqlDatabase getDatabase();
 };

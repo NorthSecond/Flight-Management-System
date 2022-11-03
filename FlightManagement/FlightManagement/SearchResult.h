@@ -7,6 +7,7 @@
 #include <QLineedit>
 #include <QDateedit>
 #include <QPushbutton>
+#include <QVector>
 
 #include "ui_SearchResult.h"
 #include "FlightManagement.h"

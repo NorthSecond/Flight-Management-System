@@ -13,6 +13,7 @@ public:
 
 private:
     Ui::FlightManagementClass ui;
+	QWidget* mainWidget = nullptr;
 
 public slots:
 	void searchFlight();
