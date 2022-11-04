@@ -164,18 +164,26 @@ Management::Management(QWidget* parent)
 	search_btn = new QPushButton(this);
 	search_btn->setText("Search");
 	search_btn->setGeometry(500, 150, 100, 30);
+	search_btn->setStyleSheet("border:2px solid #000000; border-radius:10px;"
+		"text-decoration:underline;font-size:14px;font - weight:bold; font - family:Arial;");
 	
 	insert_btn = new QPushButton(this);
 	insert_btn->setText("Insert");
 	insert_btn->setGeometry(650, 150, 100, 30);
+	insert_btn->setStyleSheet("border:2px solid #000000; border-radius:10px;"
+		"text-decoration:underline;font-size:14px;font - weight:bold; font - family:Arial;");
 
 	update_btn = new QPushButton(this);
 	update_btn->setText("Update");
 	update_btn->setGeometry(250, 560, 100, 30);
+	update_btn->setStyleSheet("border:2px solid #000000; border-radius:10px;"
+		"text-decoration:underline;font-size:14px;font - weight:bold; font - family:Arial;");
 	
 	back_btn = new QPushButton(this);
 	back_btn->setText("Back");
 	back_btn->setGeometry(550, 560, 100, 30);
+	back_btn->setStyleSheet("border:2px solid #000000; border-radius:10px;"
+		"text-decoration:underline;font-size:14px;font - weight:bold; font - family:Arial;");
 	
 	mod = new QStandardItemModel();
 	mod->setHorizontalHeaderItem(0, new QStandardItem("Flight ID"));
