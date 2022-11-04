@@ -50,11 +50,12 @@ private:
 	QMap<QString, size_t> price;
 	FlightStatus status;
 	FlightType type;
+	AircraftType aircraft;
 	
 public:
 	FlightInfo();
 	FlightInfo(QString flight_id, QString from_airport, QString dst_airport, QBitArray days, QTime departure_time, QTime arrival_time, 
-		QMap<QString, size_t> seats, QMap<QString, size_t> price, FlightStatus status, FlightType type);
+		QMap<QString, size_t> seats, QMap<QString, size_t> price, int status, int type, int aircraft);
 	~FlightInfo();
 	
 	QBitArray getDays();
@@ -67,7 +68,7 @@ public:
 	QMap<QString, size_t> getPrice();
 	FlightStatus getStatus();
 	FlightType getType();
-	
+	AircraftType getAircraft();
 
 	bool operator<(const FlightInfo& other) const;
 };

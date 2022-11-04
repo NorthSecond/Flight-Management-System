@@ -39,6 +39,12 @@ private:
 	//QLabel* seats_lbl;
 	//QLabel* price_lbl;
 	QLabel* aircraft_lbl;
+	QLabel* eco_count_lbl;
+	QLabel* eco_price_lbl;
+	QLabel* bus_count_lbl;
+	QLabel* bus_price_lbl;
+	QLabel* first_count_lbl;
+	QLabel* first_price_lbl;
 	
 	QLineEdit* id_le;
 	QLineEdit* from_le;
@@ -50,6 +56,12 @@ private:
 	QLineEdit* aircraft_le;
 	QLineEdit* status_le;
 	QLineEdit* type_le;
+	QLineEdit* eco_count_le;
+	QLineEdit* eco_price_le;
+	QLineEdit* bus_count_le;
+	QLineEdit* bus_price_le;
+	QLineEdit* first_count_le;
+	QLineEdit* first_price_le; 
 	
 	QCheckBox* mon_cb;
 	QCheckBox* tue_cb;

@@ -5,7 +5,9 @@ FlightInfo::FlightInfo()
 	flight_id = "ERROR";
 }
 
-FlightInfo::FlightInfo(QString flight_id, QString from_airport, QString dst_airport, QBitArray days, QTime departure_time, QTime arrival_time, QMap<QString, size_t> seats, QMap<QString, size_t> price, FlightStatus status, FlightType type)
+FlightInfo::FlightInfo(QString flight_id, QString from_airport, QString dst_airport, QBitArray days, QTime departure_time, 
+	QTime arrival_time, QMap<QString, size_t> seats, QMap<QString, size_t> price, int status, int type, 
+	int aircraft)
 {
 	this->flight_id = flight_id;
 	this->from_airport = from_airport;
@@ -15,8 +17,9 @@ FlightInfo::FlightInfo(QString flight_id, QString from_airport, QString dst_airp
 	this->arrival_time = arrival_time;
 	this->seats = seats;
 	this->price = price;
-	this->status = status;
-	this->type = type;
+	this->status = (FlightStatus)status;
+	this->type = (FlightType)type;
+	this->aircraft = (AircraftType)aircraft;
 }
 
 FlightInfo::~FlightInfo()
@@ -75,5 +78,10 @@ FlightInfo::FlightStatus FlightInfo::getStatus()
 FlightInfo::FlightType FlightInfo::getType()
 {
 	return type;
+}
+
+FlightInfo::AircraftType FlightInfo::getAircraft()
+{
+	return aircraft;
 }
 

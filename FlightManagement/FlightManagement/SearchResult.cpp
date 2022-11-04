@@ -4,8 +4,8 @@ SearchResult::SearchResult(QWidget *parent)
 	: QWidget(parent), dataRepo()
 {
 	// 设置高分辨率渲染
-	QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
-	QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+	//QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
+	//QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
 	// 搜索界面初始化
 	this->setStyleSheet("background-color:white");
