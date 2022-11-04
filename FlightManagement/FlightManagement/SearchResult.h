@@ -3,18 +3,19 @@
 #include <QWidget>
 #include <QLabel>
 #include <QMessagebox>
-#include <QListview>
+#include <QTableview>
 #include <QLineedit>
 #include <QDateedit>
 #include <QPushbutton>
 #include <QVector>
+#include <QStandardItemModel>
 
 #include "ui_SearchResult.h"
 #include "FlightManagement.h"
 #include "FlightInfo.h"
 #include "DatabaseRepository.h"
 
-class SearchResult : public QWidget
+class SearchResult : public QMainWindow
 {
 	Q_OBJECT
 
@@ -44,12 +45,12 @@ private:
 
 	QVector<FlightInfo> result;
 	
-	QListView* list_res;
+	QStandardItemModel* mod;
+	QTableView* table;
 	
 public slots:
 	void onSearchResult();
 	void onReset();
 	void onBack();
 	void onExit();
-	void returnSearch();
 };

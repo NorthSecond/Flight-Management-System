@@ -117,6 +117,7 @@ QVector<FlightInfo> DatabaseRepository::getFlightInfo(QString from_airport, QStr
 			flight_infos.push_back(flight_info);
 		}
 	}
+	std::sort(flight_infos.begin(), flight_infos.end());
 	return flight_infos;
 }
 
@@ -159,6 +160,7 @@ QVector <FlightInfo> DatabaseRepository::getFlightInfo(QVector<QString> flight_i
 			flight_infos.push_back(flight_info);
 		}
 	}
+	std::sort(flight_infos.begin(), flight_infos.end());
 	return flight_infos;
 }
 
@@ -203,6 +205,7 @@ QVector<FlightInfo> DatabaseRepository::getFlightInfo(QString from_airport, QStr
 			flight_infos.push_back(flight_info);
 		}
 	}
+	std::sort(flight_infos.begin(), flight_infos.end());
 	return flight_infos;
 }
 
@@ -248,6 +251,7 @@ QVector<FlightInfo> DatabaseRepository::getFlightInfo(QString from_airport, QStr
 			flight_infos.push_back(flight_info);
 		}
 	}
+	std::sort(flight_infos.begin(), flight_infos.end());
 	return flight_infos;
 }
 
@@ -293,40 +297,38 @@ QVector<FlightInfo> DatabaseRepository::getFlightInfo(QString from_airport, QStr
 			flight_infos.push_back(flight_info);
 		}
 	}
+	std::sort(flight_infos.begin(), flight_infos.end());
 	return flight_infos;
 }
 
 bool DatabaseRepository::addFlightInfo(FlightInfo flight_info) 
 {
 		QSqlQuery query;
-		
-		query.prepare("INSERT INTO FlightInfo (flight_id, from_airport, dst_airport, monday, tuesday, wednesday,"
-			" thursday, friday, saturday, sunday, departure_time, arrival_time, economy_seats, business_seats, "
-			"first_seats, economy_price, business_price, first_price, `status`, type, aircraft) VALUES (\':flight_id\', "
-			"\':from_airport\', \':dst_airport\', :monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday, "
-			"\':departure_time\', \':arrival_time\', :economy_seats, :business_seats, :first_seats, :economy_price, "
-			":business_price, :first_price, :status, :type, :aircraft)");
-		query.bindValue(":flight_id", flight_info.getFlightId());
-		query.bindValue(":from_airport", flight_info.getFromAirport());
-		query.bindValue(":dst_airport", flight_info.getDstAirport());
-		query.bindValue(":monday", flight_info.getDays().testBit(0));
-		query.bindValue(":tuesday", flight_info.getDays().testBit(1));
-		query.bindValue(":wednesday", flight_info.getDays().testBit(2));
-		query.bindValue(":thursday", flight_info.getDays().testBit(3));
-		query.bindValue(":friday", flight_info.getDays().testBit(4));
-		query.bindValue(":saturday", flight_info.getDays().testBit(5));
-		query.bindValue(":sunday", flight_info.getDays().testBit(6));
-		query.bindValue(":departure_time", flight_info.getDepartureTime());
-		query.bindValue(":arrival_time", flight_info.getArrivalTime());
-		query.bindValue(":economy_seats", flight_info.getSeats().value("Economy"));
-		query.bindValue(":business_seats", flight_info.getSeats().value("Business"));
-		query.bindValue(":first_seats", flight_info.getSeats().value("First"));
-		query.bindValue(":economy_price", flight_info.getPrice().value("Economy"));
-		query.bindValue(":business_price", flight_info.getPrice().value("Business"));
-		query.bindValue(":first_price", flight_info.getPrice().value("First"));
-		query.bindValue(":status", flight_info.getStatus());
-		query.bindValue(":type", flight_info.getType());
-		query.bindValue(":aircraft", flight_info.getAircraft());
+		QString sql = "INSERT INTO flightinfo (flight_id, from_airport, dst_airport, monday, tuesday, wednesday, thursday, friday, "
+			"saturday, sunday, departure_time, arrival_time, economy_seats, business_seats, first_seats, economy_price, business_price,"
+			" first_price, `status`, type, aircraft) VALUES(";
+		sql += "'" + flight_info.getFlightId() + "',";
+		sql += "'" + flight_info.getFromAirport() + "',";
+		sql += "'" + flight_info.getDstAirport() + "',";
+		sql +=  QString::number(flight_info.getDays().testBit(0)) + ",";
+		sql +=  QString::number(flight_info.getDays().testBit(1)) + ",";
+		sql +=  QString::number(flight_info.getDays().testBit(2)) + ",";
+		sql +=  QString::number(flight_info.getDays().testBit(3)) + ",";
+		sql +=  QString::number(flight_info.getDays().testBit(4)) + ",";
+		sql +=  QString::number(flight_info.getDays().testBit(5)) + ",";
+		sql +=  QString::number(flight_info.getDays().testBit(6)) + ",";
+		sql += "'" + flight_info.getDepartureTime().toString("hh:mm") + "',";
+		sql += "'" + flight_info.getArrivalTime().toString("hh:mm") + "',";
+		sql += QString::number(flight_info.getSeats().value("Economy")) + ",";
+		sql += QString::number(flight_info.getSeats().value("Business")) + ",";
+		sql += QString::number(flight_info.getSeats().value("First")) + ",";
+		sql += QString::number(flight_info.getPrice().value("Economy")) + ",";
+		sql += QString::number(flight_info.getPrice().value("Business")) + ",";
+		sql += QString::number(flight_info.getPrice().value("First")) + ",";
+		sql += QString::number(flight_info.getStatus()) + ",";
+		sql += QString::number(flight_info.getType()) + ",";
+		sql += QString::number(flight_info.getAircraft()) + ");";
+		query.prepare(sql);
 		return query.exec();
 }
 

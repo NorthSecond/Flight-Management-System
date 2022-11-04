@@ -35,7 +35,7 @@ FlightManagement::FlightManagement(QWidget *parent)
 	QLabel* initial_info_label = new QLabel(this);
 	initial_info_label->setText("Flight Management System");
 	// TODO: 设置相对位置
-	initial_info_label->setGeometry(200, 50, 200, 30);
+	initial_info_label->setGeometry(150, 50, 500, 30);
 	initial_info_label->setStyleSheet("font-size:20px;");
 	
 	QPushButton* search_button = new QPushButton(this);

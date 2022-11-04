@@ -11,7 +11,7 @@ Management::Management(QWidget* parent)
 	//QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 	
 	// 设置管理界面尺寸
-	this->setStyleSheet("background-color:white");
+	//this->setStyleSheet("background-color:white");
 	this->setFixedSize(800, 600);
 	this->setWindowTitle("Flight Management System");
 	//this->setWindowIcon(QIcon("icon.png"));
@@ -256,9 +256,9 @@ void Management::search_res()
 	if (!destination.isEmpty())
 		sql += " and dst_airport = '" + destination + "'";
 	if (!depart_time.isEmpty())
-		sql += " and depart_time = '" + depart_time + "'";
+		sql += " and departure_time = '" + depart_time + "'";
 	if (!arrive_time.isEmpty())
-		sql += " and arrive_time = '" + arrive_time + "'";
+		sql += " and arrival_time = '" + arrive_time + "'";
 	if (!status.isEmpty())
 		sql += " and status = '" + status + "'";
 	if (!type.isEmpty())
@@ -266,31 +266,31 @@ void Management::search_res()
 	if (!aircraft.isEmpty())
 		sql += " and aircraft = '" + aircraft + "'";
 	if (!eco_count.isEmpty())
-		sql += " and eco_count = '" + eco_count + "'";
+		sql += " and economy_seats = '" + eco_count + "'";
 	if (!eco_price.isEmpty())
-		sql += " and eco_price = '" + eco_price + "'";
+		sql += " and economy_price = '" + eco_price + "'";
 	if (!bus_count.isEmpty())
-		sql += " and bus_count = '" + bus_count + "'";
+		sql += " and business_seats = '" + bus_count + "'";
 	if (!bus_price.isEmpty())
-		sql += " and bus_price = '" + bus_price + "'";
+		sql += " and business_price = '" + bus_price + "'";
 	if (!first_count.isEmpty())
-		sql += " and first_count = '" + first_count + "'";
+		sql += " and first_seats = '" + first_count + "'";
 	if (!first_price.isEmpty())
 		sql += " and first_price = '" + first_price + "'";
 	if (mon == "1")
-		sql += " and mon = 1";
+		sql += " and monday = 1";
 	if (tue == "1")
-		sql += " and tue = 1";
+		sql += " and tuesday = 1";
 	if (wed == "1")
-		sql += " and wed = 1";
+		sql += " and wednesday = 1";
 	if (thu == "1")
-		sql += " and thu = 1";
+		sql += " and thursday = 1";
 	if (fri == "1")
-		sql += " and fri = 1";
+		sql += " and friday = 1";
 	if (sat == "1")
-		sql += " and sat = 1";
+		sql += " and saturday = 1";
 	if (sun == "1")
-		sql += " and sun = 1";
+		sql += " and sunday = 1";
 	sql += " order by flight_id;";
 	// 执行sql语句
 	QSqlQuery query(db);
@@ -500,10 +500,11 @@ void Management::insert_record()
 	// 定义一个新的FlightInfo
 	FlightInfo new_flight(flight_id, departure, destination, week,
 		depart_time_qt, arrive_time_qt, seats, prices, fli_status, fli_type, fli_aircraft);
-	if (!dataRepo.addFlightInfo(new_flight)) {
-		QMessageBox msgBox;
-		msgBox.setText("Fail");
-		msgBox.exec();
+	if (dataRepo.addFlightInfo(new_flight)) {
+		QMessageBox::information(this, "Information", "Add successfully!");
+	}
+	else {
+		QMessageBox::warning(this, "Warning", "Add failed!");
 	}
 }
 
