@@ -34,7 +34,7 @@ void DatabaseRepository::initializeDatabase(QString hostName, int port, QString 
 		QMessageBox::critical(NULL, "Error", "Database connection failed!");
 		exit(2);
 	}
-	// ï¿½ï¿½ï¿½ï¿½ï¿½Ü·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	// ²âÊÔÄÜ·ñÕý³£·ÃÎÊ
 }
 
 FlightInfo DatabaseRepository::getFlightInfo(QString flight_id)

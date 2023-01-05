@@ -4,21 +4,21 @@ SearchResult::SearchResult(QWidget* parent)
 	: QMainWindow(parent), dataRepo()
 {
 	ui.setupUi(this);
-	// ï¿½ï¿½ï¿½Ã¸ß·Ö±ï¿½ï¿½ï¿½ï¿½ï¿½È¾
+	// ÉèÖÃ¸ß·Ö±æÂÊäÖÈ¾
 	//QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
 	//QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
-	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½
+	// ËÑË÷½çÃæ³õÊ¼»¯
 	this->setStyleSheet("background-color:white");
-	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç±ï¿½Æ½ï¿½ï¿½
+	// ³õÆÚËÑË÷½çÃæÊÇ±âÆ½µÄ
 	this->setFixedSize(960, 680);
 
-	// ï¿½ï¿½ï¿½ï¿½ÊµÊ±ï¿½ï¿½ï¿½ÚµÄ¿ï¿½ÈºÍ¸ß¶ï¿½ ï¿½ï¿½Ö¹ï¿½Äµï¿½
+	// ÕâÀïÊµÊ±´°¿ÚµÄ¿í¶ÈºÍ¸ß¶È ·ÀÖ¹¼Äµô
 	size_t windowWidth = this->frameGeometry().width();
 	size_t windowHeight = this->frameGeometry().height();
 
 
-	// ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½
+	// ËÑË÷Ñ¡Ïî
 	id_lbl = new QLabel(this);
 	id_lbl->setText("Flight ID");
 	id_lbl->setGeometry(20, 20, 80, 20);
@@ -86,13 +86,13 @@ SearchResult::SearchResult(QWidget* parent)
 	mod->setHorizontalHeaderItem(7, new QStandardItem("First seats"));
 	mod->setHorizontalHeaderItem(8, new QStandardItem("First prize"));
 
-	// ï¿½ï¿½ï¿½Ã±ï¿½ï¿½
+	// ÉèÖÃ±í¸ñ
 	table = new QTableView(this);
 	table->setGeometry(50, 60, 870, 590);
 	table->setModel(mod);
 	table->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
-	// ï¿½ó¶¨¶ï¿½Ó¦ï¿½ï¿½ï¿½ÅºÅ²ï¿½
+	// °ó¶¨¶ÔÓ¦µÄÐÅºÅ²Û
 	connect(search_btn, SIGNAL(clicked()), this, SLOT(onSearchResult()));
 	connect(reset_btn, SIGNAL(clicked()), this, SLOT(onReset()));
 	connect(back_btn, SIGNAL(clicked()), this, SLOT(onBack()));
@@ -106,32 +106,32 @@ SearchResult::~SearchResult()
 
 void SearchResult::onSearchResult()
 {
-	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	// Ö»ï¿½ï¿½ï¿½ëº½ï¿½ï¿½ï¿½
-	// ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½Øºï¿½Ä¿ï¿½Äµï¿½
-	// ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½Øºï¿½Ä¿ï¿½ÄµØºï¿½ï¿½ï¿½ï¿½ï¿½
+	// ËÑË÷½á¹û
+	// ¿ÉÒÔËÑË÷µÄ¼¸ÖÖÇé¿ö
+	// Ö»ÊäÈëº½°àºÅ
+	// ÊäÈëÊ¼·¢µØºÍÄ¿µÄµØ
+	// ÊäÈëÊ¼·¢µØºÍÄ¿µÄµØºÍÈÕÆÚ
 
 	if (id_edit->text() == "" &&
 		(from_edit->text() == "" || dst_edit->text() == "")) {
-		// ï¿½ï¿½Ð§ï¿½ï¿½Ñ¯
+		// ÎÞÐ§²éÑ¯
 		QMessageBox::warning(this, "Warning", "Please input the flight ID or the departure and destination");
 	}
 	else
 	{
-		// ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½Ð¶ï¿½È¡ï¿½ï¿½ï¿½ï¿½
-		// ï¿½ï¿½È¡ï¿½ï¿½ï¿½Ýµï¿½Ê±ï¿½ï¿½ï¿½ï¿½Òªï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		// ´ÓÊý¾Ý¿âÖÐ¶ÁÈ¡Êý¾Ý
+		// ¶ÁÈ¡Êý¾ÝµÄÊ±ºòÐèÒªÅÐ¶ÏÊÇÄÄÖÖÇé¿ö
 		result.clear();
 		if (id_edit->text() != "")
-		{ // 1. Ö»ï¿½ï¿½ï¿½ëº½ï¿½ï¿½ï¿½
+		{ // 1. Ö»ÊäÈëº½°àºÅ
 			result.push_back(dataRepo.getFlightInfo(id_edit->text()));
 		}
 		else /*if (date_edit->date() != QDate::currentDate())*/
-		{ // 2. ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½Øºï¿½Ä¿ï¿½ÄµØºï¿½ï¿½ï¿½ï¿½ï¿½
+		{ // 2. ÊäÈëÊ¼·¢µØºÍÄ¿µÄµØºÍÈÕÆÚ
 			result = dataRepo.getFlightInfo(from_edit->text(), dst_edit->text(), date_edit->date());
 		}
 		//else
-		//{ // 3. ï¿½ï¿½Ð§ï¿½ï¿½Ñ¯
+		//{ // 3. ÎÞÐ§²éÑ¯
 		//	result = dataRepo.getFlightInfo(from_edit->text(), dst_edit->text());
 		//}
 	}
@@ -140,7 +140,7 @@ void SearchResult::onSearchResult()
 		QMessageBox::information(this, "Information", "No result");
 		return;
 	}
-	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¹Ê¾ï¿½ï¿½tableï¿½ï¿½
+	// ½«ÄÚÈÝÕ¹Ê¾ÔÚtableÖÐ
 	for (int i = 0; i < result.size(); i++) {
 		mod->setItem(i, 0, new QStandardItem(result[i].getFlightId()));
 		mod->setItem(i, 1, new QStandardItem(result[i].getFromAirport()));
@@ -156,7 +156,7 @@ void SearchResult::onSearchResult()
 
 void SearchResult::onReset()
 {
-	// ï¿½ï¿½ï¿½ï¿½
+	// ÖØÖÃ
 	id_edit->setText("");
 	from_edit->setText("");
 	dst_edit->setText("");
@@ -165,7 +165,7 @@ void SearchResult::onReset()
 
 void SearchResult::onBack()
 {
-	// ï¿½ï¿½ï¿½ï¿½
+	// ·µ»Ø
 	FlightManagement* fm = new FlightManagement();
 	fm->show();
 	this->hide();
@@ -173,7 +173,7 @@ void SearchResult::onBack()
 
 void SearchResult::onExit()
 {
-	// ï¿½Ë³ï¿½
+	// ÍË³ö
 	this->close();
 	exit(0);
 }

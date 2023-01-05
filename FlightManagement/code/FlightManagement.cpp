@@ -14,7 +14,7 @@ FlightManagement::FlightManagement(QWidget *parent)
 {
     ui.setupUi(this);
 
-	// ï¿½ï¿½ï¿½Ã¸ß·Ö±ï¿½ï¿½ï¿½ï¿½ï¿½È¾
+	// ÉèÖÃ¸ß·Ö±æÂÊäÖÈ¾
 	//QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
 	//QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 	
@@ -22,7 +22,7 @@ FlightManagement::FlightManagement(QWidget *parent)
 	//DatabaseRepository db;
 	
 	// initial the view
-	// ï¿½ï¿½ï¿½Ãµï¿½Â¼ï¿½ï¿½ï¿½ï¿½
+	// ÉèÖÃµÇÂ¼½çÃæ
 	this->setStyleSheet("background-color:white");
 	this->setFixedSize(512, 288);
 	this->setWindowTitle("Flight Management System");
@@ -31,23 +31,23 @@ FlightManagement::FlightManagement(QWidget *parent)
 	size_t windowWidth = this->frameGeometry().width();
 	size_t windowHeight = this->frameGeometry().height();
 	
-	// Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½Ò»Ð©Ôªï¿½ï¿½
+	// Ò»¼¶½çÃæ¶ÔÓ¦µÄÒ»Ð©ÔªËØ
 	QLabel* initial_info_label = new QLabel(this);
 	initial_info_label->setText("Flight Management System");
-	// TODO: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½
+	// TODO: ÉèÖÃÏà¶ÔÎ»ÖÃ
 	initial_info_label->setGeometry(150, 50, 500, 30);
 	initial_info_label->setStyleSheet("font-size:20px;");
 	
 	QPushButton* search_button = new QPushButton(this);
 	search_button->setText("Search Flight");
-	// TODO: ï¿½ï¿½ï¿½Î»ï¿½ï¿½
+	// TODO: Ïà¶ÔÎ»ÖÃ
 	search_button->setGeometry(200, 100, 100, 30);
 	search_button->setStyleSheet("border:2px solid #000000; border-radius:10px;"
 		"text-decoration:underline;font-size:14px;font - weight:bold; font - family:Arial;");
 	
 	QPushButton* management_button = new QPushButton(this);
 	management_button->setText("Management");
-	// TODO: ï¿½ï¿½ï¿½Î»ï¿½ï¿½+1
+	// TODO: Ïà¶ÔÎ»ÖÃ+1
 	management_button->setGeometry(200, 150, 100, 30);
 	management_button->setStyleSheet("border:2px solid #000000; border-radius:10px;"
 		"text-decoration:underline;font-size:14px;font - weight:bold; font - family:Arial;");
@@ -59,9 +59,9 @@ FlightManagement::FlightManagement(QWidget *parent)
 	exit_button->setStyleSheet("border:2px solid #000000; border-radius:10px;"
 		"text-decoration:underline;font-size:14px;font - weight:bold; font - family:Arial;");
 
-	// TODO: ï¿½ï¿½ï¿½Ã¶ï¿½Ó¦ï¿½ï¿½Í¼ï¿½ï¿½
+	// TODO: ÉèÖÃ¶ÔÓ¦µÄÍ¼±ê
 	
-	// ï¿½ï¿½ï¿½ÅºÅ²ï¿½
+	// °ó¶¨ÐÅºÅ²Û
 	connect(search_button, &QPushButton::clicked, this, &FlightManagement::searchFlight);
 	connect(management_button, &QPushButton::clicked, this, &FlightManagement::management);
 	connect(exit_button, &QPushButton::clicked, this, &FlightManagement::exit);
